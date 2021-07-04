@@ -1,0 +1,103 @@
+/* Reaction button */
+
+.ReactionButtonContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.ReactionButton {
+  width: 96px;
+  height: 20px;
+  background: #FFFFFF;
+  border: 0.8px solid #E7E7E7;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.ReactionButton:hover{
+  background: #F6F6F6;
+  border-color:#F6F6F6;
+}
+
+.ReactionButtonIcon {
+  margin-right: 4px;
+  width: 11px;
+  height: 11px;
+}
+
+.ReactionButtonLabel {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 17px;
+  color: #1B1B1B;
+}
+
+/* Reaction indicator */
+
+.ReactionIndicator {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 5px;
+  align-items: center;
+  justify-content: center;
+}
+
+.ReactionIndicatorIcons {
+  display: flex;
+  flex-direction: row-reverse;
+  margin-right: 8px;
+}
+
+.ReactionIndicatorIcon {
+  width: 16px;
+  height: 16px;
+  margin-right: -4px;
+}
+
+.ReactionIndicatorLabel {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 17px;
+  color: #ADB2BF;
+}
+
+/* Reaction menu */
+
+.ReactionMenu {
+  display: flex;
+  flex-direction: row;
+  border: 0.17px solid #CBCBCB;
+  box-sizing: border-box;
+  border-radius: 24px;
+  padding: 1px;
+  box-shadow: 0px 3px 3px #ADB2BF;
+  position: relative;
+  z-index: 10;
+  margin-left: -11px;
+}
+
+.ReactionMenuButton {
+  display: flex;
+  margin: 1px;
+  padding: 0px;
+  border: 0px;
+  background: transparent;
+}
+.ReactionMenuButton:hover {
+  width: 25px;
+  height: 25px;
+}
+
+.ReactionMenuIcon {
+  width: 20px;
+  height: 20px;
+  margin: 1px;
+}
