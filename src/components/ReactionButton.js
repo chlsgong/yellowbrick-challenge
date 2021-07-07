@@ -9,10 +9,13 @@ import hahaEmoji from '../assets/reactionIcons/haha_emoji.svg';
 
 const ReactionButton = (props) => {
   const [isHoveringButton, setIsHoveringButton] = useState(false);
-  const [isHoveringReaction, setIsHoveringReaction] = useState(false);
+  const [isHoveringReactionMenu, setIsHoveringReactionMenu] = useState(false);
 
   const isSelfReacted = true;
   const totalReactions = 2335;
+
+  let buttonHoverTimer = null;
+  let menuHoverTimer = null;
 
   // TODO: move to util file
   const numToString = (n, locale = 'en-US') => {
@@ -26,11 +29,20 @@ const ReactionButton = (props) => {
   };
 
   const renderReactionMenu = () => {
-    if (!isHoveringButton && !isHoveringReaction) return null;
+    if (!isHoveringButton && !isHoveringReactionMenu) return null;
 
     return (
-      <div className='ReactionMenu'>
-        <button
+      <div
+        className='ReactionMenu'
+        onMouseEnter={() => {
+          if (menuHoverTimer) clearTimeout(menuHoverTimer);
+          setIsHoveringReactionMenu(true);
+        }}
+        onMouseLeave={() => {
+          menuHoverTimer = setTimeout(() => setIsHoveringReactionMenu(false), 500)
+        }}
+      >
+        {/* <button
           className='ReactionMenuButton'
           type='button'
           onMouseEnter={() => {
@@ -40,7 +52,8 @@ const ReactionButton = (props) => {
           onMouseLeave={() => setIsHoveringReaction(false)}
         >
           <img className='ReactionMenuIcon' src={starFilled} alt="star" />
-        </button>
+        </button> */}
+        <img className='ReactionMenuIcon' src={starFilled} alt="star" />
         <img className='ReactionMenuIcon' src={upFilled} alt="up" />
         <img className='ReactionMenuIcon' src={downFilled} alt="down" />
         <img className='ReactionMenuIcon' src={cashFilled} alt="cash" />
@@ -51,10 +64,11 @@ const ReactionButton = (props) => {
   };
 
   const renderReactionIndicator = () => {
-    if (isHoveringButton || isHoveringReaction) return null;
+    const isReactionIndicatorHidden = isHoveringButton || isHoveringReactionMenu;
+    const className = ['ReactionIndicator', isReactionIndicatorHidden && 'ReactionIndicatorHidden'].join(' ');
 
     return (
-      <div className='ReactionIndicator'>
+      <div className={className}>
         <div className='ReactionIndicatorIcons'>
           <img className='ReactionIndicatorIcon' src={downFilled} alt="down" />
           <img className='ReactionIndicatorIcon' src={upFilled} alt="up" />
@@ -76,12 +90,11 @@ const ReactionButton = (props) => {
         type='button'
         onClick={props.onClick}
         onMouseEnter={() => {
-          console.log('hover button')
-          setIsHoveringButton(true)
+          if (buttonHoverTimer) clearTimeout(buttonHoverTimer);
+          setIsHoveringButton(true);
         }}
         onMouseLeave={() => {
-          console.log('leave button')
-          setTimeout(() => setIsHoveringButton(false), 500)
+          buttonHoverTimer = setTimeout(() => setIsHoveringButton(false), 500);
         }}
       >
         <img className='ReactionButtonIcon' src={starFilled} alt="star" />

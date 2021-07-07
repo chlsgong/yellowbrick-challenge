@@ -4,6 +4,7 @@
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  position: relative;
 }
 
 .ReactionButton {
@@ -47,6 +48,9 @@
   align-items: center;
   justify-content: center;
 }
+.ReactionIndicatorHidden {
+  opacity: 0;
+}
 
 .ReactionIndicatorIcons {
   display: flex;
@@ -79,9 +83,10 @@
   border-radius: 24px;
   padding: 1px;
   box-shadow: 0px 3px 3px #ADB2BF;
-  position: relative;
+  position: absolute;
   z-index: 10;
   margin-left: -11px;
+  bottom: 20px;
 }
 
 .ReactionMenuButton {
@@ -92,12 +97,15 @@
   background: transparent;
 }
 .ReactionMenuButton:hover {
-  width: 25px;
-  height: 25px;
 }
 
 .ReactionMenuIcon {
   width: 20px;
   height: 20px;
   margin: 1px;
+  transition: transform 0.2s;
+  transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+}
+.ReactionMenuIcon:hover {
+  transform: scale(1.3);
 }
