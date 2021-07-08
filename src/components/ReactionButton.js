@@ -22,6 +22,7 @@ const ReactionButton = (props) => {
   // TODO: put in props or hooks
   const isSelfReacted = true;
   const totalReactions = 2335;
+  const topReactions = ['star', 'up', 'down'];
 
   let buttonHoverTimer = null;
   let menuHoverTimer = null;
@@ -129,17 +130,21 @@ const ReactionButton = (props) => {
     );
   };
 
+  const renderReactionIndicatorIcon = (reactionKey, index) => {
+    const reaction = reactionIconMap[reactionKey];
+    return <img key={index} className='ReactionIndicatorIcon' src={reaction.icon} alt="noIcon" />;
+  };
+
   const renderReactionIndicator = () => {
     const isReactionIndicatorHidden = isHoveringButton || isHoveringReactionMenu;
     const className = ['ReactionIndicator', isReactionIndicatorHidden && 'ReactionIndicatorHidden'].join(' ');
+    const indicators = topReactions.slice().reverse();
 
     // TODO: use props or hooks
     return (
       <div className={className}>
         <div className='ReactionIndicatorIcons'>
-          <img className='ReactionIndicatorIcon' src={downFilled} alt="noIcon" />
-          <img className='ReactionIndicatorIcon' src={upFilled} alt="noIcon" />
-          <img className='ReactionIndicatorIcon' src={starFilled} alt="noIcon" />
+          {indicators.map((reaction, index) => renderReactionIndicatorIcon(reaction, index))}
         </div>
         <label className='ReactionIndicatorLabel'>
           {getReactionIndicatorText()}
