@@ -5,7 +5,7 @@ import ReactionButton from './components/ReactionButton';
 const App = () => {
   return (
     <div className='App'>
-      <ReactionButton title='Star' onClick={() => console.log('button clicked')} />
+      <ReactionButton onClick={() => console.log('button clicked')} />
     </div>
   );
 }
