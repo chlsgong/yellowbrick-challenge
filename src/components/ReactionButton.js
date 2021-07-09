@@ -1,85 +1,33 @@
 import React, { useState } from 'react';
 import './ReactionButton.css';
-import starFilled from '../assets/reactionIcons/star_filled.svg'; // TODO: make a icon component
-import upFilled from '../assets/reactionIcons/up_filled.svg'; // TODO: make a icon component
-import downFilled from '../assets/reactionIcons/down_filled.svg'; // TODO: make a icon component
-import cashFilled from '../assets/reactionIcons/cash_filled.svg'; // TODO: make a icon component
-import wowEmoji from '../assets/reactionIcons/wow_emoji.svg'; // TODO: make a icon component
-import hahaEmoji from '../assets/reactionIcons/haha_emoji.svg';
-import starHint from '../assets/textHints/star_hint.svg';
-import upHint from '../assets/textHints/up_hint.svg';
-import downHint from '../assets/textHints/down_hint.svg';
-import cashHint from '../assets/textHints/cash_hint.svg';
-import wowHint from '../assets/textHints/wow_hint.svg';
-import hahaHint from '../assets/textHints/haha_hint.svg';
+import { reactionIconMap, reactionEnum } from '../resources/reactions';
+import { reactionButtonStrings } from '../resources/strings';
+import { useReactions } from '../hooks/useReactions';
+import { numToString } from '../utils';
+
+const {
+  STAR,
+  UP,
+  DOWN,
+  CASH,
+  WOW,
+  HAHA,
+} = reactionEnum;
 
 const ReactionButton = (props) => {
   const [isHoveringButton, setIsHoveringButton] = useState(false);
   const [isHoveringReactionMenu, setIsHoveringReactionMenu] = useState(false);
   const [focusedReaction, setFocusedReaction] = useState('');
-  const [selectedReaction, setSelectedReaction] = useState('star');
-
-  // TODO: put in props or hooks
-  const isSelfReacted = true;
-  const totalReactions = 2335;
-  const topReactions = ['star', 'up', 'down'];
+  const [selectedReaction, setSelectedReaction] = useState(STAR);
+  const { isSelfReacted, totalReactions, topReactions } = useReactions();
 
   let buttonHoverTimer = null;
   let menuHoverTimer = null;
 
-  const reactionIconMap = {
-    'star': {
-      title: 'Star',
-      icon: starFilled,
-      hint: starHint,
-      color: '#FDDC64',
-    },
-    'up': {
-      title: 'Up',
-      icon: upFilled,
-      hint: upHint,
-      color: '#45F850',
-    },
-    'down': {
-      title: 'Down',
-      icon: downFilled,
-      hint: downHint,
-      color: '#F87045',
-    },
-    'cash': {
-      title: 'Cash',
-      icon: cashFilled,
-      hint: cashHint,
-      color: '#4562F8',
-    },
-    'wow': {
-      title: 'Wow',
-      icon: wowEmoji,
-      hint: wowHint,
-      color: '#F5CF40',
-    },
-    'haha': {
-      title: 'Haha',
-      icon: hahaEmoji,
-      hint: hahaHint,
-      color: '#F5CF40',
-    },
-  };
-
-  // TODO: move to util file
-  const numToString = (n, locale = 'en-US') => {
-    return n.toLocaleString(locale);
-  };
-
-  const getReactionIndicatorText = () => {
-    const totalReactionsString = numToString(totalReactions);
-    const selfReactedString = isSelfReacted ? `You and `: ''; // TODO: put strings in resource file
-    return selfReactedString + totalReactionsString;
-  };
-
   const renderReactionMenuButton = (reactionKey) => {
     const reaction = reactionIconMap[reactionKey];
-    const hintText = focusedReaction === reactionKey // TODO: put reaction in enum
+    // Show the reaction hint text if the user hovers the reaction
+    const hintText = focusedReaction === reactionKey
       ? <img className='ReactionMenuHint' src={reaction.hint} alt="noIcon" />
       : null;
 
@@ -89,13 +37,13 @@ const ReactionButton = (props) => {
         onMouseEnter={() => setFocusedReaction(reactionKey)}
         onMouseLeave={() => setFocusedReaction('')}
         onClick={() => {
-          // show icon in button
+          // Show icon in button
           setSelectedReaction(reactionKey)
-          // log reaction
+          // Log reaction
           console.log(`${reaction.title} tapped`);
-          // close menu
+          // Close menu
           setIsHoveringReactionMenu(false);
-          // change color of button text
+          // Change color of button text
           const reactionButtonLabel = document.getElementById('reactionButtonLabel');
           reactionButtonLabel.style.color = reaction.color;
         }}
@@ -120,14 +68,20 @@ const ReactionButton = (props) => {
           menuHoverTimer = setTimeout(() => setIsHoveringReactionMenu(false), 500)
         }}
       >
-        {renderReactionMenuButton('star')}
-        {renderReactionMenuButton('up')}
-        {renderReactionMenuButton('down')}
-        {renderReactionMenuButton('cash')}
-        {renderReactionMenuButton('wow')}
-        {renderReactionMenuButton('haha')}
+        {renderReactionMenuButton(STAR)}
+        {renderReactionMenuButton(UP)}
+        {renderReactionMenuButton(DOWN)}
+        {renderReactionMenuButton(CASH)}
+        {renderReactionMenuButton(WOW)}
+        {renderReactionMenuButton(HAHA)}
       </div>
     );
+  };
+
+  const getReactionIndicatorText = () => {
+    const totalReactionsString = numToString(totalReactions);
+    const selfReactedString = isSelfReacted ? reactionButtonStrings.indicatorText : '';
+    return selfReactedString + totalReactionsString;
   };
 
   const renderReactionIndicatorIcon = (reactionKey, index) => {
@@ -138,9 +92,9 @@ const ReactionButton = (props) => {
   const renderReactionIndicator = () => {
     const isReactionIndicatorHidden = isHoveringButton || isHoveringReactionMenu;
     const className = ['ReactionIndicator', isReactionIndicatorHidden && 'ReactionIndicatorHidden'].join(' ');
+    // Copy and reverse the top reactions array
     const indicators = topReactions.slice().reverse();
 
-    // TODO: use props or hooks
     return (
       <div className={className}>
         <div className='ReactionIndicatorIcons'>
