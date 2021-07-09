@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import ReactionButton from './components/ReactionButton';
+import ReactionButton from './ReactionButton';
 
 const App = () => {
   return (
