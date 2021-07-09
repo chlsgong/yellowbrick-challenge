@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './ReactionButton.css';
+import './ReactionButtonMenu.css';
 import { reactionIconMap, reactionEnum } from '../resources/reactions';
 
 const {

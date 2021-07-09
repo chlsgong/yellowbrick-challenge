@@ -1,5 +1,5 @@
 import React from 'react';
-import './ReactionButton.css';
+import './ReactionButtonIndicator.css';
 import { reactionIconMap } from '../resources/reactions';
 import { reactionButtonStrings } from '../resources/strings';
 import { useReactions } from '../hooks/useReactions';
