@@ -16,7 +16,7 @@ const ReactionButtonIndicator = (props) => {
 
   const renderReactionIndicatorIcon = (reactionKey, index) => {
     const reaction = reactionIconMap[reactionKey];
-    return <img key={index} className='ReactionIndicatorIcon' src={reaction.icon} alt="noIcon" />;
+    return <img data-testid={`reactionIndicatorIcon-${reactionKey}`} key={index} className='ReactionIndicatorIcon' src={reaction.icon} alt="noIcon" />;
   };
 
   const renderReactionIndicator = () => {
