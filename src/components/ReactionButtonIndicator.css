@@ -1,0 +1,31 @@
+.ReactionIndicator {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 5px;
+  align-items: center;
+  justify-content: center;
+}
+.ReactionIndicatorHidden {
+  opacity: 0;
+}
+
+.ReactionIndicatorIcons {
+  display: flex;
+  flex-direction: row-reverse;
+  margin-right: 8px;
+}
+
+.ReactionIndicatorIcon {
+  width: 16px;
+  height: 16px;
+  margin-right: -4px;
+}
+
+.ReactionIndicatorLabel {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 17px;
+  color: #ADB2BF;
+}
